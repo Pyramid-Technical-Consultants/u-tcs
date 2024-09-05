@@ -1,0 +1,19 @@
+{
+  "name": "u-tcs",
+  "version": "1.0.0",
+  "description": "United Treatement Control System",
+  "main": "main.js",
+  "repository": "git@github.com:Pyramid-Technical-Consultants/u-tcs.git",
+  "author": "Pyramid Technical Consultants, Inc",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --debug",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "^32.0.2",
+    "electron-builder": "^24.9.1"
+  }
+}
