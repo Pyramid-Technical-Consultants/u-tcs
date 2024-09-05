@@ -1,0 +1,12 @@
+appId: com.pyramid.utcs
+productName: United Treatment Control System
+copyright: Copyright © 2024 Pyramid Technical Consultants, Inc.
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null
