@@ -24,7 +24,7 @@ To get started writing code for the project, follow the steps below to set up yo
 
 Before proceeding, ensure that you have the following installed on your system:
 
-- [Node.js](https://nodejs.org/en/) (Recommended version: 18.x or above)
+- [Node.js](https://nodejs.org/en/) (Recommended version: 18.x or above) [nvm](https://github.com/nvm-sh/nvm) is the recomended way to install and manage versions of Node.js. Windows developers are encuraged to use [nvm-windows](https://github.com/coreybutler/nvm-windows). 
 - [Yarn](https://yarnpkg.com/) (Ensure you have Yarn installed globally. If not, you can install it with `npm install -g yarn`)
 - [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701) Windows Terminal is highly recommended for Windows developers.
 
