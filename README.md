@@ -26,6 +26,7 @@ Before proceeding, ensure that you have the following installed on your system:
 
 - [Node.js](https://nodejs.org/en/) (Recommended version: 18.x or above)
 - [Yarn](https://yarnpkg.com/) (Ensure you have Yarn installed globally. If not, you can install it with `npm install -g yarn`)
+- [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701) Windows Terminal is highly recommended for Windows developers.
 
 Additionally, make sure to clone the repository from the appropriate source (e.g., GitHub) before continuing.
 
