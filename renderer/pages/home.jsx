@@ -1,44 +1,16 @@
-import React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
-import packageJson from '../../package.json'
+import React from "react"
+import KitList from "../components/KitList"
+import ControlPage from "../components/ControlPage"
+import useKit from "../hooks/useKit"
+
+import "@blueprintjs/core/lib/css/blueprint.css"
 
 export default function HomePage() {
-  const [message, setMessage] = React.useState('No message found')
-
-  React.useEffect(() => {
-    window.ipc.on('message', (message) => {
-      setMessage(message)
-    })
-  }, [])
+  const [kit, loading] = useKit()
 
   return (
-    <React.Fragment>
-      <Head>
-        <title>{packageJson.description}</title>
-      </Head>
-      <div>
-        <p>
-          <Link href="/next">Go to next page</Link>
-        </p>
-        <Image
-          src="/images/logo.png"
-          alt="Logo image"
-          width={256}
-          height={256}
-        />
-      </div>
-      <div>
-        <button
-          onClick={() => {
-            window.ipc.send('message', 'Hello')
-          }}
-        >
-          Test IPC
-        </button>
-        <p>{message}</p>
-      </div>
-    </React.Fragment>
+    <ControlPage>
+      <KitList kit={kit} />
+    </ControlPage>
   )
 }
