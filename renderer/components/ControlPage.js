@@ -3,8 +3,19 @@ import Head from "next/head"
 import packageJson from "../../package.json"
 import useMode from "../hooks/useMode"
 import useUser from "../hooks/useUser"
+import styled from "styled-components"
 
-const ControlPage = ({ children }) => {
+const ControlPageContainer = styled.main`
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: auto;
+`
+
+const ControlPage = ({ children, className }) => {
   const { user } = useUser()
   const [mode] = useMode()
 
@@ -15,21 +26,11 @@ const ControlPage = ({ children }) => {
           {mode?.label} {packageJson.description} ({user?.email})
         </title>
       </Head>
-      <main
-        className={"bp5-card " + (!mode?.clinical ? "bp5-dark" : "")}
-        elevation={0}
-        style={{
-          width: "100vw",
-          height: "100vh",
-          margin: 0,
-          padding: "1px",
-          borderRadius: 0,
-          boxShadow: "none",
-          overflow: "auto",
-        }}
+      <ControlPageContainer
+        className={"bp5-card " + (!mode?.clinical ? "bp5-dark" : "") + " " + className}
       >
         {children}
-      </main>
+      </ControlPageContainer>
     </>
   )
 }

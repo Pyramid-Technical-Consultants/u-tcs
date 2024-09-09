@@ -59,9 +59,8 @@ class IGXDevice extends Tool {
   }
 
   getKitData() {
-    let data = super.getKitData()
     return {
-      ...data,
+      ...super.getKitData(),
       ip: this.ip,
       url: this.url,
       status: this.ws.readyState,
