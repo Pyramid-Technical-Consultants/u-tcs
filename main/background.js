@@ -11,9 +11,27 @@ import { modeSystem } from "./systems/ModeSystem"
 import dicomLoadLocalFile from "./dicom/dicomLoadLocalFile"
 import dicomExtractPatient from "./dicom/dicomExtractPatient"
 
-const dataSet = dicomLoadLocalFile(path.join("resources", "test_ct.dcm"))
-const patient = dicomExtractPatient(dataSet)
-console.log(patient)
+const fs = require("fs")
+
+const resourcesDir = path.join("resources/dicom")
+const dicomFiles = fs
+  .readdirSync(resourcesDir)
+  .filter((file) => file.endsWith(".dcm"))
+
+const patients = {}
+
+dicomFiles.forEach((file) => {
+  const filePath = path.join(resourcesDir, file)
+  const dataSet = dicomLoadLocalFile(filePath)
+  const patient = dicomExtractPatient(dataSet)
+  patients[patient.id] = {
+    ...(patients[patient.id] || {}),
+    patient,
+    files: [...(patients[patient.id]?.files || []), file],
+  }
+})
+
+console.log(patients)
 
 const store = new Store({})
 const kitManager = new KitManager()
@@ -54,7 +72,6 @@ if (isProd) {
   kitManager.addTool(new IGXDevice({ ip: "192.168.100.213" }))
 
   kitManager.sendToolUpdate()
-
 })()
 
 app.on("window-all-closed", () => {
