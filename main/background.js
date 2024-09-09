@@ -8,6 +8,13 @@ import IGXDevice from "./tools/pyramid/IGXDevice"
 import KitManager from "./tools/KitManager"
 import { modeSystem } from "./systems/ModeSystem"
 
+import dicomLoadLocalFile from "./dicom/dicomLoadLocalFile"
+import dicomExtractPatient from "./dicom/dicomExtractPatient"
+
+const dataSet = dicomLoadLocalFile(path.join("resources", "test_ct.dcm"))
+const patient = dicomExtractPatient(dataSet)
+console.log(patient)
+
 const store = new Store({})
 const kitManager = new KitManager()
 
