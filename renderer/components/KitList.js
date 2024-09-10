@@ -1,9 +1,17 @@
 import React from "react"
 import { Card, CardList } from "@blueprintjs/core"
+import styled from "styled-components"
+
+const Container = styled(CardList)`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30vw;
+  min-width: 16rem;
+`
 
 const KitList = ({ kit }) => {
   return (
-    <CardList compact={true}>
+    <Container compact={true} elevation={2}>
       {kit.map((tool) => (
         <Card key={tool.id}>
           <span>
@@ -13,7 +21,7 @@ const KitList = ({ kit }) => {
           </span>
         </Card>
       ))}
-    </CardList>
+    </Container>
   )
 }
 

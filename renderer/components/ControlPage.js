@@ -6,12 +6,14 @@ import useUser from "../hooks/useUser"
 import styled from "styled-components"
 
 const ControlPageContainer = styled.main`
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   margin: 0;
   padding: 0;
   border-radius: 0;
-  box-shadow: none;
+  box-shadow: none !important; 
   overflow: auto;
 `
 
