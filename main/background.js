@@ -8,21 +8,16 @@ import IGXDevice from "./tools/pyramid/IGXDevice"
 import KitManager from "./tools/KitManager"
 import { modeSystem } from "./systems/ModeSystem"
 
+import readDirectory from "./files/readDirectory"
 import dicomLoadLocalFile from "./dicom/dicomLoadLocalFile"
 import dicomExtractPatient from "./dicom/dicomExtractPatient"
 
-const fs = require("fs")
-
-const resourcesDir = path.join("resources/dicom")
-const dicomFiles = fs
-  .readdirSync(resourcesDir)
-  .filter((file) => file.endsWith(".dcm"))
+const dicomFiles = readDirectory("resources/dicom", ".dcm")
 
 const patients = {}
 
 dicomFiles.forEach((file) => {
-  const filePath = path.join(resourcesDir, file)
-  const dataSet = dicomLoadLocalFile(filePath)
+  const dataSet = dicomLoadLocalFile(file)
   const patient = dicomExtractPatient(dataSet)
   patients[patient.id] = {
     ...(patients[patient.id] || {}),
