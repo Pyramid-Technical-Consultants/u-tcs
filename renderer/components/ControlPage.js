@@ -5,6 +5,8 @@ import useMode from "../hooks/useMode"
 import useUser from "../hooks/useUser"
 import styled from "styled-components"
 
+import "@blueprintjs/core/lib/css/blueprint.css"
+
 const ControlPageContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -13,7 +15,7 @@ const ControlPageContainer = styled.main`
   margin: 0;
   padding: 0;
   border-radius: 0;
-  box-shadow: none !important; 
+  box-shadow: none !important;
   overflow: auto;
 `
 
@@ -29,7 +31,9 @@ const ControlPage = ({ children, className }) => {
         </title>
       </Head>
       <ControlPageContainer
-        className={"bp5-card " + (!mode?.clinical ? "bp5-dark" : "") + " " + className}
+        className={
+          "bp5-card " + (!mode?.clinical ? "bp5-dark" : "") + " " + className
+        }
       >
         {children}
       </ControlPageContainer>

@@ -29,11 +29,13 @@ const PATIENT_FIELDS = {
  * @returns {Object} An object containing the extracted patient fields.
  */
 function dicomExtractPatient(dataSet) {
+  // Validate input dataSet
   if (!dataSet || typeof dataSet !== "object") {
     console.error("Invalid DICOM dataset provided")
     return {}
   }
 
+  // Extract patient data from the DICOM dataset
   const patientData = dicomExtractStringFields(dataSet, PATIENT_FIELDS)
 
   // Post-processing of specific fields
@@ -41,6 +43,7 @@ function dicomExtractPatient(dataSet) {
     patientData.birthDate = dicomFormatDate(patientData.birthDate)
   }
 
+  // Format birthTime if present
   if (patientData.birthTime) {
     patientData.birthTime = dicomFormatTime(patientData.birthTime)
   }
@@ -53,10 +56,12 @@ function dicomExtractPatient(dataSet) {
     )
   }
 
+  // Format sex if present
   if (patientData.sex) {
     patientData.sex = dicomFormatSex(patientData.sex)
   }
 
+  // Check if identityRemoved is present and convert to boolean if possible
   if (patientData.identityRemoved) {
     patientData.identityRemoved =
       patientData.identityRemoved.toLowerCase() === "yes"

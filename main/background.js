@@ -7,14 +7,7 @@ import Store from "electron-store"
 import IGXDevice from "./tools/pyramid/IGXDevice"
 import KitManager from "./tools/KitManager"
 import { modeSystem } from "./systems/ModeSystem"
-
-import dicomLoadLocalDirectory from "./dicom/dicomLoadLocalDirectory"
-
-// Use an async IIFE to handle the asynchronous readDirectory
-;(async () => {
-  const patients = await dicomLoadLocalDirectory("resources/dicom")
-  console.log(patients)
-})()
+import { patientFileSystem } from "./systems/PatientFileSystem"
 
 const store = new Store({})
 const kitManager = new KitManager()

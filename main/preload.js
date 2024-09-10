@@ -18,6 +18,9 @@ const handler = {
   async getKit() {
     return await ipcRenderer.invoke("get-kit")
   },
+  async getAllPatientFiles() {
+    return await ipcRenderer.invoke("get-all-patient-files")
+  },
 }
 
 ipcRenderer.on("login-request", async (event, credentials) => {

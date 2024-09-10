@@ -5,11 +5,11 @@ import styled from "styled-components"
 const Container = styled(CardList)`
   display: flex;
   flex-direction: column;
-  flex-basis: 30vw;
-  min-width: 16rem;
+  max-height: 50%;
+  flex-shrink: 0;
 `
 
-const KitList = ({ kit }) => {
+const KitList = ({ kit, loading }) => {
   return (
     <Container compact={true} elevation={2}>
       {kit.map((tool) => (

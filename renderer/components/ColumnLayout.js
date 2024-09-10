@@ -7,6 +7,7 @@ const Container = styled.div`
   flex-grow: 1;
   gap: 1rem;
   padding: 1rem;
+  overflow: hidden;
 `
 
 function ColumnLayout({ children }) {

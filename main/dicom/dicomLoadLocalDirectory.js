@@ -46,8 +46,6 @@ function dicomLoadLocalDirectory(directory) {
               // Extract file metadata from the DICOM dataset
               const fileData = extractFileMetadata(dataSet, file)
 
-              console.log(fileData)
-
               // Add or update patient information
               if (patients[patient.id]) {
                 // If patient already exists, add the file info to their list
