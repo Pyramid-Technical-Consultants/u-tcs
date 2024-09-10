@@ -8,25 +8,13 @@ import IGXDevice from "./tools/pyramid/IGXDevice"
 import KitManager from "./tools/KitManager"
 import { modeSystem } from "./systems/ModeSystem"
 
-import readDirectory from "./files/readDirectory"
-import dicomLoadLocalFile from "./dicom/dicomLoadLocalFile"
-import dicomExtractPatient from "./dicom/dicomExtractPatient"
+import dicomLoadLocalDirectory from "./dicom/dicomLoadLocalDirectory"
 
-const dicomFiles = readDirectory("resources/dicom", ".dcm")
-
-const patients = {}
-
-dicomFiles.forEach((file) => {
-  const dataSet = dicomLoadLocalFile(file)
-  const patient = dicomExtractPatient(dataSet)
-  patients[patient.id] = {
-    ...(patients[patient.id] || {}),
-    patient,
-    files: [...(patients[patient.id]?.files || []), file],
-  }
-})
-
-console.log(patients)
+// Use an async IIFE to handle the asynchronous readDirectory
+;(async () => {
+  const patients = await dicomLoadLocalDirectory("resources/dicom")
+  console.log(patients)
+})()
 
 const store = new Store({})
 const kitManager = new KitManager()
