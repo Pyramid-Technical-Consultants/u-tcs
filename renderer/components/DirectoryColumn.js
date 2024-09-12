@@ -1,8 +1,7 @@
 import React from "react"
 import KitList from "./KitList"
-import PatientFiles from "./PatientFiles"
+import FileTree from "./FileTree"
 import useKit from "../hooks/useKit"
-import useAllPatientFiles from "../hooks/useAllPatientFiles"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -13,16 +12,20 @@ const Container = styled.div`
   gap: 1rem;
 `
 
-function LeftColumn() {
-  const [patientFiles, patientFilesLoading] = useAllPatientFiles()
+function DirectoryColumn({ fileTree, fileTreeLoading, fileTreeDispatch }) {
+
   const [kit, kitLoading] = useKit()
 
   return (
     <Container>
-      <PatientFiles patientFiles={patientFiles} loading={patientFilesLoading} />
+      <FileTree
+        fileTree={fileTree}
+        loading={fileTreeLoading}
+        dispatch={fileTreeDispatch}
+      />
       <KitList kit={kit} loading={kitLoading} />
     </Container>
   )
 }
 
-export default LeftColumn
+export default DirectoryColumn

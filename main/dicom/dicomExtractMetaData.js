@@ -1,17 +1,18 @@
 import path from "path"
-import extractStringFields from "./dicomExtractStringFields"
+import dicomExtractFields from "./dicomExtractFields"
 import dicomFormatDate from "./dicomFormatDate"
 import dicomFormatTime from "./dicomFormatTime"
 import dicomCreateDateTime from "./dicomCreateDateTime"
 
 // DICOM tags for metadata
 const META_DATA_FIELDS = {
-  type: "x00080016", // SOP Class UID
-  modality: "x00080060", // Modality
-  studyDate: "x00080020", // Study Date
-  studyTime: "x00080030", // Study Time
-  seriesNumber: "x00200011", // Series Number
-  instanceNumber: "x00200013", // Instance Number
+  type: { tag: "x00080016" }, // SOP Class UID
+  modality: { tag: "x00080060" }, // Modality
+  studyDate: { tag: "x00080020", processor: dicomFormatDate }, // Study Date
+  studyTime: { tag: "x00080030", processor: dicomFormatTime }, // Study Time
+  seriesNumber: { tag: "x00200011", processor: parseInt }, // Series Number
+  instanceNumber: { tag: "x00200013", processor: parseInt }, // Instance Number
+  id: { tag: "x00080018" }, // SOP Instance UID
 }
 
 /**
@@ -32,17 +33,7 @@ function extractFileMetadata(dataSet, filePath) {
   }
 
   // Extract metadata fields from the DICOM dataset
-  const metaData = extractStringFields(dataSet, META_DATA_FIELDS)
-
-  // Format study date if present
-  if (metaData.studyDate) {
-    metaData.studyDate = dicomFormatDate(metaData.studyDate)
-  }
-
-  // Format study time if present
-  if (metaData.studyTime) {
-    metaData.studyTime = dicomFormatTime(metaData.studyTime)
-  }
+  const metaData = dicomExtractFields(dataSet, META_DATA_FIELDS)
 
   // Create a combined studyDateTime if studyDate is available
   if (metaData.studyDate) {
@@ -52,19 +43,9 @@ function extractFileMetadata(dataSet, filePath) {
     )
   }
 
-  // Convert seriesNumber to integer if present
-  if (metaData.seriesNumber) {
-    metaData.seriesNumber = parseInt(metaData.seriesNumber, 10)
-  }
-
-  // Convert instanceNumber to integer if present
-  if (metaData.instanceNumber) {
-    metaData.instanceNumber = parseInt(metaData.instanceNumber, 10)
-  }
-
   // Return the extracted metadata along with the file path
   return {
-    path: filePath,
+    filePath: filePath,
     fileName: path.basename(filePath),
     ...metaData,
   }

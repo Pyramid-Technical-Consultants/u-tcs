@@ -21,6 +21,9 @@ const handler = {
   async getAllPatientFiles() {
     return await ipcRenderer.invoke("get-all-patient-files")
   },
+  async getPlan(id) {
+    return await ipcRenderer.invoke("get-plan", id)
+  },
 }
 
 ipcRenderer.on("login-request", async (event, credentials) => {

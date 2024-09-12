@@ -1,15 +1,27 @@
 import React from "react"
 import ControlPage from "../components/ControlPage"
 import ColumnLayout from "../components/ColumnLayout"
-import LeftColumn from "../components/LeftColumn"
-import PlanView from "../components/PlanView"
+import DirectoryColumn from "../components/DirectoryColumn"
+import FileNodeView from "../components/FileNodeView"
+import useAllPatientFiles from "../hooks/useAllPatientFiles"
 
 export default function HomePage() {
+  const {
+    fileTree,
+    loading: fileTreeLoading,
+    dispatch: fileTreeDispatch,
+    selectedNode,
+  } = useAllPatientFiles()
+
   return (
     <ControlPage>
       <ColumnLayout>
-        <LeftColumn />
-        <PlanView />
+        <DirectoryColumn
+          fileTree={fileTree}
+          fileTreeLoading={fileTreeLoading}
+          fileTreeDispatch={fileTreeDispatch}
+        />
+        <FileNodeView selectedNode={selectedNode} />
       </ColumnLayout>
     </ControlPage>
   )

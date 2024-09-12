@@ -1,16 +1,24 @@
 import React from "react"
-import { Card } from "@blueprintjs/core"
 import styled from "styled-components"
+import usePlan from "../hooks/usePlan"
+import PatientFields from "./PatientFields"
+import BeamList from "./BeamList"
 
-const Container = styled(Card)`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  flex-basis: 70vw;
+  gap: 0.5rem;
 `
 
-function PlanView() {
-  return <Container elevation={2}>PlanView</Container>
+function PlanView({ selectedNode }) {
+  const plan = usePlan(selectedNode?.id)
+
+  return (
+    <Container>
+      <PatientFields patient={plan?.patient} />
+      <BeamList beams={plan?.beams} />
+    </Container>
+  )
 }
 
 export default PlanView
