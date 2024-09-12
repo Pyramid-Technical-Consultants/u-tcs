@@ -16,7 +16,7 @@ function PlanView({ selectedNode }) {
   return (
     <Container>
       <PatientTags patient={plan?.patient} />
-      <BeamList beams={plan?.beams} />
+      <BeamList {...plan} />
     </Container>
   )
 }

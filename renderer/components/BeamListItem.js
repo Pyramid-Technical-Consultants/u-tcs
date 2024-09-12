@@ -38,7 +38,10 @@ const Number = styled.h3`
   margin-right: 0.5rem;
 `
 
-function BeamListItem({ beam }) {
+function BeamListItem({ beam, patientSetup }) {
+
+  console.log(patientSetup)
+
   return (
     <Container>
       <Number>{beam?.number}</Number>

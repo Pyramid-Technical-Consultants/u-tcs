@@ -25,8 +25,19 @@ const Title = styled.h2`
   margin: 0;
 `
 
-function BeamList({ beams }) {
+function BeamList({ beams, patientSetups = [] }) {
   if (!beams || beams.length === 0) return null
+
+  const combinedBeams = beams.map((beam) => {
+    const patientSetup = patientSetups.find(
+      (setup) => setup.number === beam.referencedPatientSetupNumber
+    )
+
+    return {
+      beam,
+      patientSetup,
+    }
+  })
 
   return (
     <Container>
@@ -35,8 +46,8 @@ function BeamList({ beams }) {
       </Header>
 
       <BeamContainer>
-        {beams.map((beam) => (
-          <BeamListItem key={beam.number} beam={beam} />
+        {combinedBeams.map((beam) => (
+          <BeamListItem key={beam.number} {...beam} />
         ))}
       </BeamContainer>
     </Container>

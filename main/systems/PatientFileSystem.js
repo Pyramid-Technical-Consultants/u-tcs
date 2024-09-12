@@ -3,6 +3,7 @@ import { ipcMain } from "electron"
 import dicomLoadLocalDirectory from "../dicom/dicomLoadLocalDirectory"
 import dicomLoadLocalFile from "../dicom/dicomLoadLocalFile"
 import dicomExtractPatient from "../dicom/dicomExtractPatient"
+import dicomExtractPatientSetups from "../dicom/dicomExtractPatientSetups"
 import dicomExtractBeams from "../dicom/dicomExtractBeams"
 
 class PatientFileSystem extends System {
@@ -72,6 +73,7 @@ class PatientFileSystem extends System {
       let plan = {}
 
       plan.patient = dicomExtractPatient(dataSet)
+      plan.patientSetups = dicomExtractPatientSetups(dataSet)
       plan.beams = dicomExtractBeams(dataSet)
 
       return plan
