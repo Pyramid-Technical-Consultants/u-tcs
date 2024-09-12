@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import usePlan from "../hooks/usePlan"
-import PatientFields from "./PatientFields"
+import PatientTags from "./PatientTags"
 import BeamList from "./BeamList"
 
 const Container = styled.div`
@@ -15,7 +15,7 @@ function PlanView({ selectedNode }) {
 
   return (
     <Container>
-      <PatientFields patient={plan?.patient} />
+      <PatientTags patient={plan?.patient} />
       <BeamList beams={plan?.beams} />
     </Container>
   )

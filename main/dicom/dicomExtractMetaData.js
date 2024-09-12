@@ -1,11 +1,11 @@
 import path from "path"
-import dicomExtractFields from "./dicomExtractFields"
+import dicomExtractTags from "./dicomExtractTags"
 import dicomFormatDate from "./dicomFormatDate"
 import dicomFormatTime from "./dicomFormatTime"
 import dicomCreateDateTime from "./dicomCreateDateTime"
 
 // DICOM tags for metadata
-const META_DATA_FIELDS = {
+const META_DATA_TAGS = {
   type: { tag: "x00080016" }, // SOP Class UID
   modality: { tag: "x00080060" }, // Modality
   studyDate: { tag: "x00080020", processor: dicomFormatDate }, // Study Date
@@ -32,8 +32,8 @@ function extractFileMetadata(dataSet, filePath) {
     throw new Error("Invalid filePath provided")
   }
 
-  // Extract metadata fields from the DICOM dataset
-  const metaData = dicomExtractFields(dataSet, META_DATA_FIELDS)
+  // Extract metadata tags from the DICOM dataset
+  const metaData = dicomExtractTags(dataSet, META_DATA_TAGS)
 
   // Create a combined studyDateTime if studyDate is available
   if (metaData.studyDate) {

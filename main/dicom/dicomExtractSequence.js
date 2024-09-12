@@ -1,14 +1,14 @@
-import dicomExtractFields from "./dicomExtractFields.js"
+import dicomExtractTags from "./dicomExtractTags.js"
 
 /**
  * Extracts and processes items from a DICOM dataset sequence.
  * @param {Object} dataSet - The DICOM dataset containing the sequence.
  * @param {string} index - The index of the sequence in the dataset.
- * @param {Object} fields - The fields to extract from each item.
+ * @param {Object} tags - The tags to extract from each item.
  * @param {Function} [processor] - Optional function to process each extracted item.
  * @returns {Array} An array of extracted and processed items.
  */
-function dicomExtractSequence(dataSet, index, fields, processor) {
+function dicomExtractSequence(dataSet, index, tags, processor) {
   // Validate input parameters
   if (!dataSet || typeof dataSet !== "object") {
     console.warn("Invalid DICOM dataset provided")
@@ -18,8 +18,8 @@ function dicomExtractSequence(dataSet, index, fields, processor) {
     console.warn("Invalid index provided to dicomExtractSequence")
     return []
   }
-  if (!fields || typeof fields !== "object") {
-    console.warn("Invalid fields object provided to dicomExtractSequence")
+  if (!tags || typeof tags !== "object") {
+    console.warn("Invalid tags object provided to dicomExtractSequence")
     return []
   }
 
@@ -41,8 +41,8 @@ function dicomExtractSequence(dataSet, index, fields, processor) {
   // Use map and filter for a more functional approach
   return items
     .map((item) => {
-      // Extract fields from the item's dataSet
-      const extractedItem = dicomExtractFields(item.dataSet, fields)
+      // Extract tags from the item's dataSet
+      const extractedItem = dicomExtractTags(item.dataSet, tags)
 
       // Process the item if a processor function is provided
       if (extractedItem && typeof processor === "function") {

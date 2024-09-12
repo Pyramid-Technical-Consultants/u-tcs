@@ -1,4 +1,4 @@
-import dicomExtractFields from "./dicomExtractFields"
+import dicomExtractTags from "./dicomExtractTags"
 import dicomFormatName from "./dicomFormatName"
 import dicomFormatDate from "./dicomFormatDate"
 import dicomFormatTime from "./dicomFormatTime"
@@ -6,7 +6,7 @@ import dicomCreateDateTime from "./dicomCreateDateTime"
 import dicomFormatSex from "./dicomFormatSex"
 
 // DICOM tags for patient information
-const PATIENT_FIELDS = {
+const PATIENT_TAGS = {
   id: { tag: "x00100020" }, // Patient ID
   name: { tag: "x00100010", processor: dicomFormatName }, // Patient's Name
   nameOther: { tag: "x00101001", processor: dicomFormatName }, // Other Patient Names
@@ -30,7 +30,7 @@ const PATIENT_FIELDS = {
  * Extracts patient data from a DICOM data set.
  *
  * @param {Object} dataSet - The DICOM data set to extract patient information from.
- * @returns {Object} An object containing the extracted patient fields.
+ * @returns {Object} An object containing the extracted patient tags.
  */
 function dicomExtractPatient(dataSet) {
   // Validate input dataSet
@@ -40,7 +40,7 @@ function dicomExtractPatient(dataSet) {
   }
 
   // Extract patient data from the DICOM dataset
-  const patientData = dicomExtractFields(dataSet, PATIENT_FIELDS)
+  const patientData = dicomExtractTags(dataSet, PATIENT_TAGS)
 
   // Combine birthDate and birthTime into a JS Date object
   if (patientData.birthDate) {

@@ -1,7 +1,7 @@
 import dicomExtractSequence from "./dicomExtractSequence.js"
 
-// Define DICOM tags for beam-related fields
-const BEAM_FIELDS = {
+// Define DICOM tags for beam-related tags
+const BEAM_TAGS = {
   number: { tag: "x300a00c0", processor: parseInt },
   name: { tag: "x300a00c2" },
   description: { tag: "x300a00c3" },
@@ -33,7 +33,7 @@ function dicomExtractBeams(dataSet) {
   const beams = dicomExtractSequence(
     dataSet,
     "x300a03a2", // DICOM tag for beam sequence
-    BEAM_FIELDS
+    BEAM_TAGS
   )
 
   return beams

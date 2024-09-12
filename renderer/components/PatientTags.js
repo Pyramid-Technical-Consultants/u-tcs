@@ -21,7 +21,7 @@ const Row = styled.div`
   gap: 0.5rem;
 `
 
-function PatientFields({ patient = {} }) {
+function PatientTags({ patient = {} }) {
   return (
     <Container>
       {patient.name && <Name>{patient.name}</Name>}
@@ -76,4 +76,4 @@ function PatientFields({ patient = {} }) {
   )
 }
 
-export default PatientFields
+export default PatientTags

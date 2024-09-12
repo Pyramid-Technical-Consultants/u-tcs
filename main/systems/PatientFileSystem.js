@@ -19,17 +19,17 @@ class PatientFileSystem extends System {
       const {
         files: oldFiles,
         patient: oldPatient,
-        ...oldPatientFields
+        ...oldPatientTags
       } = this.patientFiles[id]
       const {
         files: newFiles,
         patient: newPatient,
-        ...newPatientFields
+        ...newPatientTags
       } = patientData
 
       this.patientFiles[id] = {
-        ...oldPatientFields,
-        ...newPatientFields,
+        ...oldPatientTags,
+        ...newPatientTags,
         patient: {
           ...oldPatient,
           ...newPatient,
