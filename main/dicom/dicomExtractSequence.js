@@ -47,7 +47,7 @@ function dicomExtractSequence(dataSet, index, tags, processor) {
       // Process the item if a processor function is provided
       if (extractedItem && typeof processor === "function") {
         try {
-          processor(extractedItem)
+          processor(extractedItem, item.dataSet)
         } catch (error) {
           console.error("Error in processor function:", error)
         }

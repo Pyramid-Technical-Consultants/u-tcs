@@ -11,8 +11,6 @@ function dicomExtractPlan(dataSet) {
   plan.patientSetups = dicomExtractPatientSetups(dataSet)
   plan.beams = dicomExtractBeams(dataSet)
 
-  console.log(plan.fractions)
-
   return plan
 }
 
