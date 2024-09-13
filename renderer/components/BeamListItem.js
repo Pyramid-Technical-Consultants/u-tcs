@@ -40,7 +40,7 @@ const Number = styled.h3`
 
 function BeamListItem({ beam, patientSetup }) {
 
-  console.log(patientSetup)
+  console.log(beam)
 
   return (
     <Container>

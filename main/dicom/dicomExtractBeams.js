@@ -29,12 +29,16 @@ const BEAM_TAGS = {
  * @returns {Array} An array of processed beam objects.
  */
 function dicomExtractBeams(dataSet) {
-  // Extract beam sequence using the specific DICOM tag
-  const beams = dicomExtractSequence(
-    dataSet,
-    "x300a03a2", // DICOM tag for beam sequence
-    BEAM_TAGS
-  )
+  // Determine the tag to use based on the presence of the "x300a03a2" tag
+  // If the tag is not found, use "x300a00b0" as a fallback
+  // This is the deference between RT ion beams and normal RT beams
+  let tag = dataSet.elements["x300a03a2"] ? "x300a03a2" : "x300a00b0"
+
+  let beams = dicomExtractSequence(dataSet, tag, BEAM_TAGS)
+
+  if (beams.length > 0) {
+    beams.sort((a, b) => a.number - b.number)
+  }
 
   return beams
 }

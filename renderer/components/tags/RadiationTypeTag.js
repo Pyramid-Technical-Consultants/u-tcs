@@ -1,13 +1,18 @@
 import React from "react"
 import PropTypes from "prop-types"
 import OptionalTag from "./OptionalTag"
+import styled from "styled-components"
+
+const Symbol = styled.b`
+  margin-top: -3px;
+`
 
 // Define a constant object for radiation types with their respective icons and values
 const RADIATION_TYPES = {
-  PHOTON: { icon: <b>γ</b>, value: "Photon" },
-  ELECTRON: { icon: <b>e⁻</b>, value: "Electron" },
-  NEUTRON: { icon: <b>n</b>, value: "Neutron" },
-  PROTON: { icon: <b>p⁺</b>, value: "Proton" },
+  PHOTON: { icon: <Symbol>γ</Symbol>, value: "Photon" },
+  ELECTRON: { icon: <Symbol>e⁻</Symbol>, value: "Electron" },
+  NEUTRON: { icon: <Symbol>n</Symbol>, value: "Neutron" },
+  PROTON: { icon: <Symbol>p⁺</Symbol>, value: "Proton" },
   ION: { icon: "range-ring", value: "Ion" },
 }
 
