@@ -3,6 +3,10 @@ import dicomExtractFractionGroups from "../dicom/dicomExtractFractionGroups"
 import dicomExtractPatientSetups from "../dicom/dicomExtractPatientSetups"
 import dicomExtractBeams from "../dicom/dicomExtractBeams"
 
+const GENERAL_TAGS = {
+  label: { tag: "x300a0002" },
+}
+
 function dicomExtractPlan(dataSet) {
   const plan = {}
 
