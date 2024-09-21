@@ -1,3 +1,5 @@
+import dicomExtractSequence from "./dicomExtractSequence"
+
 /**
  * Extracts specified tags from a DICOM data set.
  *
@@ -18,16 +20,30 @@ function dicomExtractTags(dataSet, tags) {
   }
 
   // Extract and process tags
-  return Object.entries(tags).reduce((acc, [key, { tag, processor }]) => {
-    const value = dataSet.string(tag)
+  return Object.entries(tags).reduce(
+    (acc, [key, { tag, processor, sequence }]) => {
+      if (sequence) {
+        // Extract the sequence
+        const items = dicomExtractSequence(dataSet, tag, sequence, processor)
 
-    // Add non-empty values to the result, applying processor if provided
-    if (value != null) {
-      acc[key] = processor ? processor(value.trim()) : value.trim()
-    }
+        // Add non-empty values to the result
+        if (items != null) {
+          acc[key] = items
+        }
+      } else {
+        // Extract the value
+        const value = dataSet.string(tag)
 
-    return acc
-  }, {})
+        // Add non-empty values to the result, applying processor if provided
+        if (value != null) {
+          acc[key] = processor ? processor(value.trim()) : value.trim()
+        }
+      }
+
+      return acc
+    },
+    {}
+  )
 }
 
 export default dicomExtractTags
