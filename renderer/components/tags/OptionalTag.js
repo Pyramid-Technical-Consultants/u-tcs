@@ -2,7 +2,7 @@ import React from "react"
 import { Tag } from "@blueprintjs/core"
 
 function OptionalTag({ value, ...props }) {
-  if (!value) {
+  if (typeof value === "undefined" || value === null) {
     return null
   }
 

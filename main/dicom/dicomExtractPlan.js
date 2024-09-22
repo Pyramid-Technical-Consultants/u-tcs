@@ -2,6 +2,7 @@ import dicomExtractPatient from "../dicom/dicomExtractPatient"
 import dicomExtractFractionGroups from "../dicom/dicomExtractFractionGroups"
 import dicomExtractPatientSetups from "../dicom/dicomExtractPatientSetups"
 import dicomExtractBeams from "../dicom/dicomExtractBeams"
+import dicomExtractTags from "../dicom/dicomExtractTags"
 import dicomFormatDate from "../dicom/dicomFormatDate"
 import dicomFormatTime from "../dicom/dicomFormatTime"
 

@@ -7,7 +7,7 @@ import DateTag from "./tags/DateTag"
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 `
 
 const Name = styled.h1`

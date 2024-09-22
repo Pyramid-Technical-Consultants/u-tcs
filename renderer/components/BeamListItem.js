@@ -1,11 +1,15 @@
 import React from "react"
 import styled from "styled-components"
 import { Button, Card } from "@blueprintjs/core"
+import MetersetTag from "./tags/MetersetTag"
 import DoseTag from "./tags/DoseTag"
 import TreatmentDeliveryTypeTag from "./tags/TreatmentDeliveryTypeTag"
 import RadiationTypeTag from "./tags/RadiationTypeTag"
 import BeamTypeTag from "./tags/BeamTypeTag"
 import ScanModeTag from "./tags/ScanModeTag"
+import PositionTag from "./tags/PositionTag"
+import SetupTechniqueTag from "./tags/SetupTechniqueTag"
+import OptionalTag from "./tags/OptionalTag"
 
 const Container = styled(Card)`
   display: flex;
@@ -23,10 +27,22 @@ const Column = styled.div`
   gap: 0.25rem;
 `
 
-const Row = styled.div`
+const LeftRow = styled.div`
   display: flex;
   flex-flow: row wrap;
   gap: 0.25rem;
+
+  align-items: center;
+  justify-content: flex-start;
+`
+
+const RightRow = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.25rem;
+
+  align-items: center;
+  justify-content: flex-end;
 `
 
 const Grow = styled.div`
@@ -39,29 +55,52 @@ const Number = styled.h3`
 `
 
 function BeamListItem({ beam, patientSetup }) {
+  let meterset = beam?.beamMeterset
+  if (typeof meterset !== "number") {
+    meterset = beam?.finalCumulativeMetersetWeight
+  }
 
-  console.log(beam)
+  const isDosing =
+    beam?.treatmentDeliveryType === "TREATMENT" ||
+    beam?.treatmentDeliveryType === "CONTINUATION"
 
   return (
     <Container>
       <Number>{beam?.number}</Number>
       <Column>
-        <Row>
+        <LeftRow>
           {beam?.name} {beam?.description}
-        </Row>
-        <Row>
+        </LeftRow>
+        <LeftRow>
           <TreatmentDeliveryTypeTag value={beam?.treatmentDeliveryType} />
           <RadiationTypeTag value={beam?.radiationType} />
           <BeamTypeTag value={beam?.beamType} />
           <ScanModeTag value={beam?.scanMode} />
-        </Row>
+          <SetupTechniqueTag value={patientSetup?.setupTechnique} />
+          <PositionTag value={patientSetup?.position} />
+        </LeftRow>
       </Column>
       <Grow />
-      <DoseTag
-        dose={beam?.finalCumulativeMetersetWeight}
-        units={beam?.primaryDosimeterUnit}
-        large
-      />
+      <RightRow>
+        <OptionalTag
+          icon="layout-auto"
+          value={
+            beam?.numberOfControlPoints
+              ? `${beam?.numberOfControlPoints} Control Points`
+              : null
+          }
+        />
+        {isDosing && <DoseTag value={beam?.beamDose} />}
+      </RightRow>
+      {isDosing && (
+        <RightRow>
+          <MetersetTag
+            value={meterset}
+            units={beam?.primaryDosimeterUnit}
+            large
+          />
+        </RightRow>
+      )}
       <Button icon="chevron-right" minimal />
     </Container>
   )

@@ -3,22 +3,22 @@ import OptionalTag from "./OptionalTag"
 
 const formatter = new Intl.NumberFormat()
 
-function DoseTag({ value, ...props }) {
+function MetersetTag({ value, units, ...props }) {
   if (typeof value === "undefined" || value === null || value === 0) {
     return null
   }
 
   return (
     <OptionalTag
-      icon="flash"
+      icon="prescription"
+      {...props}
       value={
         <span>
-          {formatter.format(value)} <b>Gy</b>
+          {formatter.format(value)} <b>{units}</b>
         </span>
       }
-      {...props}
     />
   )
 }
 
-export default DoseTag
+export default MetersetTag

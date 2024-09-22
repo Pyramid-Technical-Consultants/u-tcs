@@ -26,7 +26,6 @@ function dicomExtractFractionGroups(dataSet) {
     "x300a0070",
     FRACTION_GROUP_TAGS,
     (fraction, fractionDataset) => {
-      console.log(fractionDataset)
       // Extract the beams for each fraction
       fraction.beams = dicomExtractSequence(
         fractionDataset,

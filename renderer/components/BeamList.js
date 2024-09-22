@@ -14,21 +14,10 @@ const BeamContainer = styled(CardList)`
   flex-direction: column;
 `
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const Title = styled.h2`
-  margin: 0;
-`
-
 function BeamList({ beams, patientSetups = [] }) {
   if (!beams || beams.length === 0) return null
 
-  const combinedBeams = beams.map((beam) => {
+  const itemProps = beams?.map((beam) => {
     const patientSetup = patientSetups.find(
       (setup) => setup.number === beam.referencedPatientSetupNumber
     )
@@ -41,13 +30,9 @@ function BeamList({ beams, patientSetups = [] }) {
 
   return (
     <Container>
-      <Header>
-        <Title>Planned Beams</Title>
-      </Header>
-
       <BeamContainer>
-        {combinedBeams.map((beam) => (
-          <BeamListItem key={beam.number} {...beam} />
+        {itemProps.map(({ beam, ...rest }) => (
+          <BeamListItem key={beam.number} beam={beam} {...rest} />
         ))}
       </BeamContainer>
     </Container>

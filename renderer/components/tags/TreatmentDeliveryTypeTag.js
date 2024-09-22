@@ -3,11 +3,11 @@ import OptionalTag from "./OptionalTag"
 
 // Combined mapping of treatment delivery types to their corresponding icons and labels
 const TREATMENT_DELIVERY_TYPES = {
-  TREATMENT: { icon: "prescription", value: "Treatment" },
-  CONTINUATION: { icon: "prescription", value: "Continuation" },
-  OPEN_PORTFILM: { icon: "film", value: "Open Portfilm" },
-  TRMT_PORTFILM: { icon: "film", value: "Treatment Portfilm" },
-  SETUP: { icon: "changes", value: "Setup" },
+  TREATMENT: { icon: "prescription", value: "Treatment", intent: "success" },
+  CONTINUATION: { icon: "prescription", value: "Continuation", intent: "success" },
+  OPEN_PORTFILM: { icon: "film", value: "Open Port Film", intent: "success" },
+  TRMT_PORTFILM: { icon: "film", value: "Treatment Port Film", intent: "success" },
+  SETUP: { icon: "changes", value: "Setup", intent: "none" },
 }
 
 /**
