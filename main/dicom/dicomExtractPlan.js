@@ -51,6 +51,10 @@ function dicomExtractPlan(dataSet) {
   plan.patientSetups = dicomExtractPatientSetups(dataSet)
   plan.beams = dicomExtractBeams(dataSet)
 
+  for (let beam of plan.beams) {
+    console.log(beam)
+  }
+
   return plan
 }
 
