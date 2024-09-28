@@ -21,6 +21,16 @@ const BEAM_TAGS = {
   primaryDosimeterUnit: { tag: "x300a00b3" },
   finalCumulativeMetersetWeight: { tag: "x300a010e", processor: parseFloat },
   numberOfControlPoints: { tag: "x300a0110", processor: parseInt },
+  controlPoints: {
+    tag: "x300a0111",
+    sequence: {
+      index: { tag: "x300a0112", processor: parseInt },
+      nominalBeamEnergy: { tag: "x300a0114", processor: parseFloat },
+      doseRateSet: { tag: "x300a0115", processor: parseFloat },
+      gantryAngle: { tag: "x300a011e", processor: parseFloat },
+      gantryRotationDirection: { tag: "x300a011f" },
+    },
+  },
 }
 
 /**

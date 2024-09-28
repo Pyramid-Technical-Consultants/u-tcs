@@ -78,20 +78,18 @@ function BeamListItem({ beam, patientSetup }) {
           <ScanModeTag value={beam?.scanMode} />
           <SetupTechniqueTag value={patientSetup?.setupTechnique} />
           <PositionTag value={patientSetup?.position} />
+          <OptionalTag
+            icon="layout-auto"
+            value={
+              beam?.numberOfControlPoints
+                ? `${beam?.numberOfControlPoints} Control Points`
+                : null
+            }
+          />
+          {isDosing && <DoseTag value={beam?.beamDose} />}
         </LeftRow>
       </Column>
       <Grow />
-      <RightRow>
-        <OptionalTag
-          icon="layout-auto"
-          value={
-            beam?.numberOfControlPoints
-              ? `${beam?.numberOfControlPoints} Control Points`
-              : null
-          }
-        />
-        {isDosing && <DoseTag value={beam?.beamDose} />}
-      </RightRow>
       {isDosing && (
         <RightRow>
           <MetersetTag
