@@ -29,6 +29,7 @@ const BEAM_TAGS = {
       doseRateSet: { tag: "x300a0115", processor: parseFloat },
       gantryAngle: { tag: "x300a011e", processor: parseFloat },
       gantryRotationDirection: { tag: "x300a011f" },
+      isocenterPosition: { tag: "x300a0120", processor: parseFloat },
     },
   },
 }
