@@ -36,8 +36,6 @@ function PlanView({ selectedNode }) {
       : plan?.general?.name || plan?.general?.label
   const description = plan?.general?.description
 
-  console.log("Plan", plan)
-
   return (
     <Container>
       <Patient>

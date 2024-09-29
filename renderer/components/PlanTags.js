@@ -5,7 +5,7 @@ import IntentTag from "./tags/IntentTag"
 
 const PLAN_TAGS_RENDERERS = {
   intent: (props) => <IntentTag {...props} />,
-  date: (props) => <DateTag {...props} />,
+  dateTime: (props) => <DateTag {...props} />,
 }
 
 function PlanTags({ plan = {} }) {
