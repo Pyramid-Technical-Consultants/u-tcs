@@ -52,7 +52,11 @@ function dicomExtractPlan(dataSet) {
   plan.beams = dicomExtractBeams(dataSet)
 
   for (let beam of plan.beams) {
-    console.log(beam)
+    for (let controlPoint of beam.controlPoints) {
+      if (controlPoint.isocenterPosition) {
+        console.log(controlPoint.isocenterPosition)
+      }
+    }
   }
 
   return plan
