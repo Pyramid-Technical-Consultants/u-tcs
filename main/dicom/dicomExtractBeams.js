@@ -39,6 +39,19 @@ const BEAM_TAGS = {
           positions: { tag: "x300a011c", processor: dicomFormatFloatArray },
         },
       },
+      referencedDoseReferences: {
+        tag: "x300c0050",
+        sequence: {
+          cumulativeDoseReferenceCoefficient: {
+            tag: "x300a010c",
+            processor: parseFloat,
+          },
+          referencedDoseReferenceNumber: {
+            tag: "x300c0051",
+            processor: parseInt,
+          },
+        },
+      },
     },
   },
 }
