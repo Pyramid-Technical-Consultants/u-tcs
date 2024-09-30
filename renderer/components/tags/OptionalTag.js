@@ -2,28 +2,28 @@ import React from "react"
 import { Tag } from "@blueprintjs/core"
 import { Tooltip } from "@blueprintjs/core"
 
-function TagElement({ value, ...props }) {
+function TagElement({ key, value, ...props }) {
   return (
-    <Tag minimal interactive {...props}>
+    <Tag key={key} minimal interactive {...props}>
       {value}
     </Tag>
   )
 }
 
-function OptionalTag({ value, tooltip, ...props }) {
+function OptionalTag({ key, value, tooltip, ...props }) {
   if (typeof value === "undefined" || value === null) {
     return null
   }
 
   if (tooltip) {
     return (
-      <Tooltip content={tooltip}>
-        <TagElement value={value} {...props} />
+      <Tooltip key={key} content={tooltip}>
+        <TagElement key={key} value={value} {...props} />
       </Tooltip>
     )
   }
 
-  return <TagElement value={value} {...props} />
+  return <TagElement key={key} value={value} {...props} />
 }
 
 export default OptionalTag

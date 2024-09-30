@@ -18,7 +18,7 @@ function TagList({ tags = {}, renderers = {} }) {
           // If element is non-null use it to render a Tag
           elementRenderer !== null &&
           tags[key] &&
-          elementRenderer({ value: tags[key] })
+          elementRenderer({ key: i, value: tags[key] })
       )}
     </Row>
   )
