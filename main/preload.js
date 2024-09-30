@@ -38,4 +38,8 @@ ipcRenderer.on("mode-request", async (event, modeID) => {
   await ipcRenderer.invoke("change-mode", modeID)
 })
 
+ipcRenderer.on("language-change", async (event, language) => {
+  // await ipcRenderer.invoke("change-language", language)
+})
+
 contextBridge.exposeInMainWorld('ipc', handler)

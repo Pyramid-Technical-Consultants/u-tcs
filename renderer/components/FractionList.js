@@ -15,11 +15,11 @@ const Title = styled.h2`
 `
 
 const FRACTION_TAGS_RENDERERS = {
-  numberOfFractionsPlanned: ({ value }) => (
-    <OptionalTag icon="doughnut-chart" value={value ? `${value} Fractions` : null} />
+  numberOfFractionsPlanned: ({ key, value }) => (
+    <OptionalTag key={key} icon="doughnut-chart" value={value ? `${value} Fractions` : null} />
   ),
-  numberOfBeams: ({ value }) => (
-    <OptionalTag icon="input" value={value ? `${value} Beams` : null} />
+  numberOfBeams: ({ key, value }) => (
+    <OptionalTag key={key} icon="input" value={value ? `${value} Beams` : null} />
   ),
 }
 

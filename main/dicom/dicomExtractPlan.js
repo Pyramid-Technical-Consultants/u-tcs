@@ -2,9 +2,11 @@ import dicomExtractPatient from "../dicom/dicomExtractPatient"
 import dicomExtractFractionGroups from "../dicom/dicomExtractFractionGroups"
 import dicomExtractPatientSetups from "../dicom/dicomExtractPatientSetups"
 import dicomExtractBeams from "../dicom/dicomExtractBeams"
+import dicomExtractApproval from "../dicom/dicomExtractApproval"
 import dicomExtractTags from "../dicom/dicomExtractTags"
 import dicomFormatDate from "../dicom/dicomFormatDate"
 import dicomFormatTime from "../dicom/dicomFormatTime"
+import dicomCreateDateTime from "../dicom/dicomCreateDateTime"
 
 const GENERAL_PLAN_TAGS = {
   label: { tag: "x300a0002" },
@@ -14,7 +16,7 @@ const GENERAL_PLAN_TAGS = {
   time: { tag: "x300a0007", processor: dicomFormatTime },
   treatmentProtocols: { tag: "x300a0009" },
   intent: { tag: "x300a000a" },
-  geometry: { tag: "x300a000b" },
+  geometry: { tag: "x300a000c" },
   referencedStructures: {
     tag: "x300c0060",
     sequence: {
@@ -45,11 +47,22 @@ function dicomExtractPlan(dataSet) {
   // Extract general plan information
   plan.general = dicomExtractTags(dataSet, GENERAL_PLAN_TAGS)
 
+  // Combine date and time into a JS Date object
+  if (plan.general.date) {
+    plan.general.dateTime = dicomCreateDateTime(
+      plan.general.date,
+      plan.general.time
+    )
+  }
+
   // Extract patient, fractions, patient setups, and beams
   plan.patient = dicomExtractPatient(dataSet)
   plan.fractions = dicomExtractFractionGroups(dataSet)
   plan.patientSetups = dicomExtractPatientSetups(dataSet)
   plan.beams = dicomExtractBeams(dataSet)
+  plan.approval = dicomExtractApproval(dataSet)
+
+  console.log(plan.general)
 
   return plan
 }

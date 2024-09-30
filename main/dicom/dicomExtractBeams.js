@@ -1,5 +1,5 @@
 import dicomExtractSequence from "./dicomExtractSequence.js"
-
+import dicomFormatFloatArray from "./dicomFormatFloatArray.js"
 // Define DICOM tags for beam-related tags
 const BEAM_TAGS = {
   number: { tag: "x300a00c0", processor: parseInt },
@@ -21,6 +21,39 @@ const BEAM_TAGS = {
   primaryDosimeterUnit: { tag: "x300a00b3" },
   finalCumulativeMetersetWeight: { tag: "x300a010e", processor: parseFloat },
   numberOfControlPoints: { tag: "x300a0110", processor: parseInt },
+  controlPoints: {
+    tag: "x300a0111",
+    sequence: {
+      index: { tag: "x300a0112", processor: parseInt },
+      nominalBeamEnergy: { tag: "x300a0114", processor: parseFloat },
+      doseRateSet: { tag: "x300a0115", processor: parseFloat },
+      gantryAngle: { tag: "x300a011e", processor: parseFloat },
+      gantryRotationDirection: { tag: "x300a011f" },
+      isocenterPosition: { tag: "x300a012c", processor: dicomFormatFloatArray },
+      sourceToSurfaceDistance: { tag: "x300a0130", processor: parseFloat },
+      cumulativeMetersetWeight: { tag: "x300a0134", processor: parseFloat },
+      beamLimitingDevicePositions: {
+        tag: "x300a011a",
+        sequence: {
+          type: { tag: "x300a00b8" },
+          positions: { tag: "x300a011c", processor: dicomFormatFloatArray },
+        },
+      },
+      referencedDoseReferences: {
+        tag: "x300c0050",
+        sequence: {
+          cumulativeDoseReferenceCoefficient: {
+            tag: "x300a010c",
+            processor: parseFloat,
+          },
+          referencedDoseReferenceNumber: {
+            tag: "x300c0051",
+            processor: parseInt,
+          },
+        },
+      },
+    },
+  },
 }
 
 /**

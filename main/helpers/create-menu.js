@@ -1,8 +1,14 @@
-const { app, Menu, ipcMain, webContents } = require("electron")
+import { app, Menu, BrowserWindow } from "electron"
+// import i18n from "../translations/i18n"
 
 function createMenu(mainWindow) {
+  function setLanguage(language) {
+    // i18n.locale = language
+
+    mainWindow.webContents.send("language-change", language)
+  }
+
   const template = [
-    // ... existing menu items ...
     {
       label: "File",
       submenu: [
@@ -123,10 +129,39 @@ function createMenu(mainWindow) {
         },
       ],
     },
+    {
+      label: "Language",
+      submenu: [
+        {
+          label: "English (United States)",
+          click: () => {
+            setLanguage("en-US")
+          },
+        },
+        {
+          label: "English (United Kingdom)",
+          click: () => {
+            setLanguage("en-GB")
+          },
+        },
+        {
+          label: "Italian (Italiano)",
+          click: () => {
+            setLanguage("it")
+          },
+        },
+        {
+          label: "French (Français)",
+          click: () => {
+            setLanguage("fr")
+          },
+        },
+      ],
+    },
   ]
 
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 }
 
-module.exports = createMenu
+export default createMenu

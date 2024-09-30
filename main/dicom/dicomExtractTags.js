@@ -22,21 +22,23 @@ function dicomExtractTags(dataSet, tags) {
   // Extract and process tags
   return Object.entries(tags).reduce(
     (acc, [key, { tag, processor, sequence }]) => {
-      if (sequence) {
-        // Extract the sequence
-        const items = dicomExtractSequence(dataSet, tag, sequence, processor)
+      if (dataSet.elements[tag]) {
+        if (sequence) {
+          // Extract the sequence
+          const items = dicomExtractSequence(dataSet, tag, sequence, processor)
 
-        // Add non-empty values to the result
-        if (items != null) {
-          acc[key] = items
-        }
-      } else {
-        // Extract the value
-        const value = dataSet.string(tag)
+          // Add non-empty values to the result
+          if (items != null) {
+            acc[key] = items
+          }
+        } else {
+          // Extract the value
+          const value = dataSet.string(tag)
 
-        // Add non-empty values to the result, applying processor if provided
-        if (value != null) {
-          acc[key] = processor ? processor(value.trim()) : value.trim()
+          // Add non-empty values to the result, applying processor if provided
+          if (value != null) {
+            acc[key] = processor ? processor(value.trim()) : value.trim()
+          }
         }
       }
 

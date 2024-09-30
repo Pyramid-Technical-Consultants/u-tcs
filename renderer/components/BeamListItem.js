@@ -80,6 +80,15 @@ function BeamListItem({ beam, patientSetup }) {
         <LeftRow>
           <SetupTechniqueTag value={patientSetup?.setupTechnique} />
           <PositionTag value={patientSetup?.position} />
+          <OptionalTag
+            icon="layout-auto"
+            value={
+              beam?.numberOfControlPoints
+                ? `${beam?.numberOfControlPoints} Control Points`
+                : null
+            }
+          />
+          {isDosing && <DoseTag value={beam?.beamDose} />}
         </LeftRow>
         <LeftRow>
           <ControlPointsTag value={beam?.numberOfControlPoints} />
