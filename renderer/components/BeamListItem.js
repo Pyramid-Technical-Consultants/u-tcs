@@ -9,7 +9,7 @@ import BeamTypeTag from "./tags/BeamTypeTag"
 import ScanModeTag from "./tags/ScanModeTag"
 import PositionTag from "./tags/PositionTag"
 import SetupTechniqueTag from "./tags/SetupTechniqueTag"
-import OptionalTag from "./tags/OptionalTag"
+import ControlPointsTag from "./tags/ControlPointsTag"
 
 const Container = styled(Card)`
   display: flex;
@@ -76,22 +76,17 @@ function BeamListItem({ beam, patientSetup }) {
           <RadiationTypeTag value={beam?.radiationType} />
           <BeamTypeTag value={beam?.beamType} />
           <ScanModeTag value={beam?.scanMode} />
+        </LeftRow>
+        <LeftRow>
           <SetupTechniqueTag value={patientSetup?.setupTechnique} />
           <PositionTag value={patientSetup?.position} />
         </LeftRow>
+        <LeftRow>
+          <ControlPointsTag value={beam?.numberOfControlPoints} />
+        </LeftRow>
       </Column>
       <Grow />
-      <RightRow>
-        <OptionalTag
-          icon="layout-auto"
-          value={
-            beam?.numberOfControlPoints
-              ? `${beam?.numberOfControlPoints} Control Points`
-              : null
-          }
-        />
-        {isDosing && <DoseTag value={beam?.beamDose} />}
-      </RightRow>
+      <RightRow>{isDosing && <DoseTag value={beam?.beamDose} />}</RightRow>
       {isDosing && (
         <RightRow>
           <MetersetTag
