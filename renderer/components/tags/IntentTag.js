@@ -9,9 +9,8 @@ const IntentTag = ({ value, ...props }) => {
   // If no value is provided, don't render anything
   if (!value) return null
 
-  // Define a constant object for intent types with their respective icons and values
-  const intents = useMemo(
-    () => ({
+  const valueProps = useMemo(() => {
+    const intents = {
       CURATIVE: {
         icon: "heart",
         intent: "success",
@@ -60,14 +59,14 @@ const IntentTag = ({ value, ...props }) => {
         value: i18n.t("plan.intent.unknown.value"),
         tooltip: i18n.t("plan.intent.unknown.tooltip"),
       },
-    }),
-    [i18n, language]
-  )
+    }
+    return intents[value] ?? intents.UNKNOWN
+  }, [i18n, language, value])
 
   return (
     <OptionalTag
       // Use the intents object to get the icon and value, or fallback to default
-      {...(intents[value] ?? intents.UNKNOWN)}
+      {...valueProps}
       // Pass any additional props to the OptionalTag component
       {...props}
     />

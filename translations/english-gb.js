@@ -34,6 +34,32 @@ export default {
         "value": "Unknown",
         "tooltip": "Intent of this plan is unknown, probably a software error.",
       },
+    },
+    "radiationType": {
+      "photon": {
+        "value": "Photon",
+        "tooltip": "Radiotherapy using X-rays or gamma rays.",
+      },
+      "electron": {
+        "value": "Electron",
+        "tooltip": "Radiotherapy using electrons.",
+      },
+      "neutron": {
+        "value": "Neutron",
+        "tooltip": "Radiotherapy using neutrons.",
+      },
+      "proton": {
+        "value": "Proton",
+        "tooltip": "Radiotherapy using protons.",
+      },
+      "ion": {
+        "value": "Ion",
+        "tooltip": "Radiotherapy using heavy charged particles.",
+      },
+      "unknown": {
+        "value": "Unknown",
+        "tooltip": "Unknown radiation type, probably a software error.",
+      },
     }
   }
 }

@@ -42,5 +42,32 @@ export default {
           "L'obiettivo di questo piano è sconosciuto, probabilmente un errore del software.",
       },
     },
+    radiationType: {
+      photon: {
+        value: "Fotone",
+        tooltip: "Radioterapia con raggi X o raggi gamma.",
+      },
+      electron: {
+        value: "Elettrone",
+        tooltip: "Radioterapia con elettroni.",
+      },
+      neutron: {
+        value: "Neutrone",
+        tooltip: "Radioterapia con neutroni.",
+      },
+      proton: {
+        value: "Protone",
+        tooltip: "Radioterapia con protoni.",
+      },
+      ion: {
+        value: "Ione",
+        tooltip: "Radioterapia con particelle cariche pesanti.",
+      },
+      unknown: {
+        value: "Sconosciuto",
+        tooltip:
+          "Tipo di radiazione sconosciuto, probabilmente un errore del software.",
+      },
+    },
   },
 }
