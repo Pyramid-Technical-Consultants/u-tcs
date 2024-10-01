@@ -5,10 +5,10 @@
  */
 function dicomFormatSex(sex) {
   const normalized = sex.toLowerCase().trim()
-  if (normalized.startsWith("m")) return "Male"
-  if (normalized.startsWith("f")) return "Female"
-  if (normalized === "o") return "Other"
-  return "Unknown"
+  if (normalized.startsWith("m")) return "male"
+  if (normalized.startsWith("f")) return "female"
+  if (normalized === "o") return "other"
+  return "unknown"
 }
 
 export default dicomFormatSex

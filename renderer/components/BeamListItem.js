@@ -7,7 +7,7 @@ import TreatmentDeliveryTypeTag from "./tags/TreatmentDeliveryTypeTag"
 import RadiationTypeTag from "./tags/RadiationTypeTag"
 import BeamTypeTag from "./tags/BeamTypeTag"
 import ScanModeTag from "./tags/ScanModeTag"
-import PositionTag from "./tags/PositionTag"
+import PatientPositionTag from "./tags/PatientPositionTag"
 import SetupTechniqueTag from "./tags/SetupTechniqueTag"
 import ControlPointsTag from "./tags/ControlPointsTag"
 
@@ -76,18 +76,8 @@ function BeamListItem({ beam, patientSetup }) {
           <RadiationTypeTag value={beam?.radiationType} />
           <BeamTypeTag value={beam?.beamType} />
           <ScanModeTag value={beam?.scanMode} />
-        </LeftRow>
-        <LeftRow>
           <SetupTechniqueTag value={patientSetup?.setupTechnique} />
-          <PositionTag value={patientSetup?.position} />
-          <OptionalTag
-            icon="layout-auto"
-            value={
-              beam?.numberOfControlPoints
-                ? `${beam?.numberOfControlPoints} Control Points`
-                : null
-            }
-          />
+          <PatientPositionTag value={patientSetup?.position} />
           {isDosing && <DoseTag value={beam?.beamDose} />}
         </LeftRow>
         <LeftRow>
@@ -95,7 +85,6 @@ function BeamListItem({ beam, patientSetup }) {
         </LeftRow>
       </Column>
       <Grow />
-      <RightRow>{isDosing && <DoseTag value={beam?.beamDose} />}</RightRow>
       {isDosing && (
         <RightRow>
           <MetersetTag

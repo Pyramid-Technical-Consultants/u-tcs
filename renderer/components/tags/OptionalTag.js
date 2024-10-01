@@ -1,10 +1,20 @@
 import React from "react"
 import { Tag } from "@blueprintjs/core"
 import { Tooltip } from "@blueprintjs/core"
+import styled from "styled-components"
+
+const Text = styled.div`
+  max-width: 28rem;
+  text-wrap: wrap;
+`
+
+function TooltipContent({ tooltip }) {
+  return <Text>{tooltip}</Text>
+}
 
 function TagElement({ key, value, ...props }) {
   return (
-    <Tag key={key} minimal interactive {...props}>
+    <Tag key={key} minimal interactive round {...props}>
       {value}
     </Tag>
   )
@@ -17,7 +27,7 @@ function OptionalTag({ key, value, tooltip, ...props }) {
 
   if (tooltip) {
     return (
-      <Tooltip key={key} content={tooltip}>
+      <Tooltip key={key} content={<TooltipContent tooltip={tooltip} compact={true} />}>
         <TagElement key={key} value={value} {...props} />
       </Tooltip>
     )

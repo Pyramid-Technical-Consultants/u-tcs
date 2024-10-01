@@ -1,34 +1,18 @@
 import React from "react"
-import OptionalTag from "./OptionalTag"
+import TypeTag from "./TypeTag"
 
-// Combined mapping of treatment delivery types to their corresponding icons and labels
-const TREATMENT_DELIVERY_TYPES = {
-  TREATMENT: { icon: "prescription", value: "Treatment", intent: "success" },
-  CONTINUATION: { icon: "prescription", value: "Continuation", intent: "success" },
-  OPEN_PORTFILM: { icon: "film", value: "Open Port Film", intent: "success" },
-  TRMT_PORTFILM: { icon: "film", value: "Treatment Port Film", intent: "success" },
-  SETUP: { icon: "changes", value: "Setup", intent: "none" },
+const map = {
+  treatment: { icon: "prescription", intent: "success" },
+  continuation: { icon: "prescription", intent: "success" },
+  open_portfilm: { icon: "film", intent: "success" },
+  trmt_portfilm: { icon: "film", intent: "success" },
+  setup: { icon: "changes", intent: "none" },
+  unknown: { icon: "issue", intent: "danger" },
 }
 
-/**
- * TreatmentDeliveryTypeTag component
- * Renders a tag with an icon and label based on the treatment delivery type
- * @param {string} value - The treatment delivery type
- * @param {Object} props - Additional props to pass to OptionalTag
- * @returns {React.Element|null} The rendered tag or null if no value is provided
- */
+// TreatmentDeliveryTypeTag component to display treatment delivery type information
 const TreatmentDeliveryTypeTag = ({ value, ...props }) => {
-  if (!value) return null
-
-  return (
-    <OptionalTag
-      {...(TREATMENT_DELIVERY_TYPES[value] ?? {
-        icon: "prescription",
-        value,
-      })}
-      {...props}
-    />
-  )
+  return <TypeTag value={value} prefix="plan.treatmentDeliveryType" map={map} {...props} />
 }
 
 export default TreatmentDeliveryTypeTag
