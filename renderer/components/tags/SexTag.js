@@ -4,7 +4,7 @@ import TypeTag from "./TypeTag"
 const map = {
   male: { icon: "user" },
   female: { icon: "user" },
-  other: { icon: "cube" },
+  other: { icon: "user" },
   unknown: { icon: "issue", intent: "danger" },
 }
 

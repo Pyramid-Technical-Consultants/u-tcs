@@ -258,5 +258,32 @@ export default {
           "Type de position inconnu, probablement une erreur logicielle.",
       },
     },
+    scanMode: {
+      none: {
+        value: "Aucun",
+        tooltip:
+          "Aucune analyse du faisceau n'est effectuée; le faisceau reste stationnaire.",
+      },
+      uniform: {
+        value: "Uniforme",
+        tooltip:
+          "Le faisceau est scanné pour créer une distribution uniforme de dose sur le champ.",
+      },
+      modulated: {
+        value: "Modulé",
+        tooltip:
+          "Le faisceau est scanné avec une intensité variable pour moduler la distribution de dose sur le champ.",
+      },
+      modulated_spec: {
+        value: "Modulé Spécifié",
+        tooltip:
+          "Le faisceau est scanné avec un motif de modulation spécifique, tel que défini par le type de mode de balayage.",
+      },
+      unknown: {
+        value: "Inconnu",
+        tooltip:
+          "Mode de balayage inconnu, probablement une erreur logicielle.",
+      },
+    },
   },
 }

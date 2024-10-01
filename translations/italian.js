@@ -260,5 +260,32 @@ export default {
           "Tipo di posizione sconosciuto, probabilmente un errore del software.",
       },
     },
+    scanMode: {
+      none: {
+        value: "Nessuno",
+        tooltip:
+          "Nessuna scansione del fascio viene eseguita; il fascio rimane stazionario.",
+      },
+      uniform: {
+        value: "Uniforme",
+        tooltip:
+          "Il fascio viene scansionato per creare una distribuzione uniforme della dose sul campo.",
+      },
+      modulated: {
+        value: "Modulato",
+        tooltip:
+          "Il fascio viene scansionato con intensità variabile per modulare la distribuzione della dose sul campo.",
+      },
+      modulated_spec: {
+        value: "Modulato Specificato",
+        tooltip:
+          "Il fascio viene scansionato con un modello di modulazione specifico, come definito dal tipo di modalità di scansione.",
+      },
+      unknown: {
+        value: "Sconosciuto",
+        tooltip:
+          "Modalità di scansione sconosciuta, probabilmente un errore del software.",
+      },
+    },
   },
 }

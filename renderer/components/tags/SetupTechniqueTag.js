@@ -3,10 +3,10 @@ import TypeTag from "./TypeTag"
 
 const map = {
   isocentric: { icon: "bullseye" },
-  fixed_ssd: { icon: "bullseye" },
-  tbi: { icon: "bullseye" },
+  fixed_ssd: { icon: "horizontal-inbetween" },
+  tbi: { icon: "walk" },
   breast_bridge: { icon: "bullseye" },
-  skin_apposition: { icon: "bullseye" },
+  skin_apposition: { icon: "chevron-forward" },
   unknown: { icon: "issue", intent: "danger" },
 }
 

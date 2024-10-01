@@ -240,5 +240,30 @@ export default {
         tooltip: "Unknown position type, probably a software error.",
       },
     },
+    scanMode: {
+      none: {
+        value: "None",
+        tooltip: "No beam scanning is performed; the beam remains stationary.",
+      },
+      uniform: {
+        value: "Uniform",
+        tooltip:
+          "Beam is scanned to create a uniform dose distribution across the field.",
+      },
+      modulated: {
+        value: "Modulated",
+        tooltip:
+          "Beam is scanned with varying intensity to modulate dose distribution across the field.",
+      },
+      modulated_spec: {
+        value: "Modulated Specified",
+        tooltip:
+          "Beam is scanned with a specific modulated pattern, as defined by the scan mode type.",
+      },
+      unknown: {
+        value: "Unknown",
+        tooltip: "Unknown scan mode, probably a software error.",
+      },
+    },
   },
 }
