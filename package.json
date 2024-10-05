@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^5.12.0",
+    "@cornerstonejs/core": "^1.86.0",
+    "@cornerstonejs/streaming-image-volume-loader": "^1.86.0",
+    "@cornerstonejs/tools": "^1.86.0",
     "date-fns": "^4.1.0",
     "dicom-parser": "^1.8.21",
     "electron-serve": "^1.3.0",
