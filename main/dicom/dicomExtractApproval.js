@@ -14,20 +14,21 @@ const APPROVAL_TAGS = {
 /**
  * Extracts approval information from a DICOM dataset.
  * @param {Object} dataSet - The DICOM dataset to extract approval information from.
+ * @param {Object} file - The file object to store the extracted approval information in.
  * @returns {Object} An object containing the extracted approval information.
  */
-function dicomExtractApproval(dataSet) {
-  const approval = dicomExtractTags(dataSet, APPROVAL_TAGS)
+function dicomExtractApproval(dataSet, file) {
+  file.approval = dicomExtractTags(dataSet, APPROVAL_TAGS)
 
   // Combine reviewDate and reviewTime into a JS Date object
-  if (approval.reviewDate) {
-    approval.reviewDateTime = dicomCreateDateTime(
-      approval.reviewDate,
-      approval.reviewTime
+  if (file.approval.reviewDate) {
+    file.approval.reviewDateTime = dicomCreateDateTime(
+      file.approval.reviewDate,
+      file.approval.reviewTime
     )
   }
 
-  return approval
+  return file.approval
 }
 
 export default dicomExtractApproval

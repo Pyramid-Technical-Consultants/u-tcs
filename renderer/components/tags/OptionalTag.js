@@ -12,9 +12,9 @@ function TooltipContent({ tooltip }) {
   return <Text>{tooltip}</Text>
 }
 
-function TagElement({ key, value, ...props }) {
+function TagElement({ value, ...props }) {
   return (
-    <Tag key={key} minimal interactive round {...props}>
+    <Tag minimal interactive round {...props}>
       {value}
     </Tag>
   )

@@ -3,6 +3,7 @@ import styled from "styled-components"
 import BeamList from "./BeamList"
 import TagList from "./TagList"
 import OptionalTag from "./tags/OptionalTag"
+import useLanguage from "../hooks/useLanguage"
 
 const Container = styled.div`
   display: flex;
@@ -16,19 +17,31 @@ const Title = styled.h2`
 
 const FRACTION_TAGS_RENDERERS = {
   numberOfFractionsPlanned: ({ key, value }) => (
-    <OptionalTag key={key} icon="doughnut-chart" value={value ? `${value} Fractions` : null} />
+    <OptionalTag
+      key={key}
+      icon="doughnut-chart"
+      value={value ? `${value} Fractions` : null}
+    />
   ),
   numberOfBeams: ({ key, value }) => (
-    <OptionalTag key={key} icon="input" value={value ? `${value} Beams` : null} />
+    <OptionalTag
+      key={key}
+      icon="input"
+      value={value ? `${value} Beams` : null}
+    />
   ),
 }
 
-function FractionList({ fractions, beams, patientSetups }) {
+function FractionList({ fractionGroups, beams, patientSetups }) {
+  const [i18n] = useLanguage()
+
   return (
     <>
-      {fractions?.map((fraction, index) => (
+      {fractionGroups?.map((fraction, index) => (
         <Container key={index}>
-          <Title>Fraction Group {fraction.number}</Title>
+          <Title>
+            {i18n.t("plan.fraction_group")} {fraction.number}
+          </Title>
           <TagList tags={fraction} renderers={FRACTION_TAGS_RENDERERS} />
           <BeamList
             key={index}

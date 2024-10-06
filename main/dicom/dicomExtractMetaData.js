@@ -18,37 +18,35 @@ const META_DATA_TAGS = {
 /**
  * Extracts metadata from a DICOM file.
  * @param {Object} dataSet - The DICOM data set.
+ * @param {Object} file - The file object to store the extracted metadata in.
  * @param {string} filePath - The path to the DICOM file.
  * @returns {Object} - The metadata extracted from the DICOM file.
  */
-function extractFileMetadata(dataSet, filePath) {
+function extractFileMetadata(dataSet, file, filePath) {
   // Validate input dataSet
   if (!dataSet || typeof dataSet !== "object") {
     throw new Error("Invalid dataSet provided")
   }
 
-  // Validate input filePath
-  if (!filePath || typeof filePath !== "string") {
-    throw new Error("Invalid filePath provided")
-  }
-
   // Extract metadata tags from the DICOM dataset
-  const metaData = dicomExtractTags(dataSet, META_DATA_TAGS)
+  file.metaData = dicomExtractTags(dataSet, META_DATA_TAGS)
 
   // Create a combined studyDateTime if studyDate is available
-  if (metaData.studyDate) {
-    metaData.studyDateTime = dicomCreateDateTime(
-      metaData.studyDate,
-      metaData.studyTime
+  if (file.metaData.studyDate) {
+    file.metaData.studyDateTime = dicomCreateDateTime(
+      file.metaData.studyDate,
+      file.metaData.studyTime
     )
   }
 
-  // Return the extracted metadata along with the file path
-  return {
-    filePath: filePath,
-    fileName: path.basename(filePath),
-    ...metaData,
+  if (filePath) {
+    // Add file path and name to the metadata
+    file.metaData.filePath = filePath
+    file.metaData.fileName = path.basename(filePath)
   }
+
+  // Return the extracted metadata along with the file path
+  return file.metaData
 }
 
 export default extractFileMetadata

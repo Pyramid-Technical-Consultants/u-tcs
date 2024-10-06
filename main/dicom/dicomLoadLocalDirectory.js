@@ -1,7 +1,7 @@
 import readDirectory from "../files/readDirectory"
 import dicomLoadLocalFile from "./dicomLoadLocalFile"
 import dicomExtractPatient from "./dicomExtractPatient"
-import extractFileMetadata from "./dicomExtractMetaData"
+import extractFileMetadata from "./dicomExtractMetadata"
 
 /**
  * Loads DICOM files from a local directory and extracts patient information.
@@ -29,35 +29,37 @@ function dicomLoadLocalDirectory(directory) {
 
       // Process each DICOM file
       return Promise.all(
-        dicomFiles.map((file) =>
-          dicomLoadLocalFile(file)
+        dicomFiles.map((filePath) =>
+          dicomLoadLocalFile(filePath)
             .then((dataSet) => {
               // Ensure the file was loaded successfully
               if (!dataSet) {
-                throw new Error(`Failed to load DICOM file: ${file}`)
+                throw new Error(`Failed to load DICOM file: ${filePath}`)
               }
 
+              let file = {}
+
               // Extract patient information from the DICOM dataset
-              const patient = dicomExtractPatient(dataSet)
+              const patient = dicomExtractPatient(dataSet, file)
               if (!patient.id) {
-                throw new Error(`Patient ID missing in file: ${file}`)
+                throw new Error(`Patient ID missing in file: ${filePath}`)
               }
 
               // Extract file metadata from the DICOM dataset
-              const fileData = extractFileMetadata(dataSet, file)
+              extractFileMetadata(dataSet, file, filePath)
 
               // Add or update patient information
               if (patients[patient.id]) {
                 // If patient already exists, add the file info to their list
-                patients[patient.id].files.push(fileData)
+                patients[patient.id].files.push(file)
               } else {
                 // If new patient, create a new entry with patient info and file info
-                patients[patient.id] = { patient, files: [fileData] }
+                patients[patient.id] = { patient, files: [file] }
               }
             })
             .catch((error) => {
               // Collect any errors encountered during file processing
-              errors.push({ file, error: error.message })
+              errors.push({ filePath, error: error.message })
             })
         )
       ).then(() => {

@@ -9,7 +9,7 @@ const PLAN_TAGS_RENDERERS = {
 }
 
 function PlanTags({ plan = {} }) {
-  return <TagList tags={plan.general} renderers={PLAN_TAGS_RENDERERS} />
+  return <TagList tags={plan.generalPlan} renderers={PLAN_TAGS_RENDERERS} />
 }
 
 export default PlanTags

@@ -30,9 +30,10 @@ const PATIENT_TAGS = {
  * Extracts patient data from a DICOM data set.
  *
  * @param {Object} dataSet - The DICOM data set to extract patient information from.
+ * @param {Object} file - The file object to store the extracted patient information in.
  * @returns {Object} An object containing the extracted patient tags.
  */
-function dicomExtractPatient(dataSet) {
+function dicomExtractPatient(dataSet, file) {
   // Validate input dataSet
   if (!dataSet || typeof dataSet !== "object") {
     console.error("Invalid DICOM dataset provided")
@@ -40,17 +41,17 @@ function dicomExtractPatient(dataSet) {
   }
 
   // Extract patient data from the DICOM dataset
-  const patientData = dicomExtractTags(dataSet, PATIENT_TAGS)
+  file.patient = dicomExtractTags(dataSet, PATIENT_TAGS)
 
   // Combine birthDate and birthTime into a JS Date object
-  if (patientData.birthDate) {
-    patientData.birthDateTime = dicomCreateDateTime(
-      patientData.birthDate,
-      patientData.birthTime
+  if (file.patient.birthDate) {
+    file.patient.birthDateTime = dicomCreateDateTime(
+      file.patient.birthDate,
+      file.patient.birthTime
     )
   }
 
-  return patientData
+  return file.patient
 }
 
 export default dicomExtractPatient

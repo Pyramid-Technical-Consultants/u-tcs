@@ -2,7 +2,7 @@ import System from "./System"
 import { ipcMain } from "electron"
 import dicomLoadLocalDirectory from "../dicom/dicomLoadLocalDirectory"
 import dicomLoadLocalFile from "../dicom/dicomLoadLocalFile"
-import dicomExtractPlan from "../dicom/dicomExtractPlan"
+import dicomExtractFile from "../dicom/dicomExtractFile"
 
 class PatientFileSystem extends System {
   constructor() {
@@ -38,11 +38,13 @@ class PatientFileSystem extends System {
     }
 
     const newDicomFiles = patientData.files.filter((file) =>
-      file.fileName.endsWith(".dcm")
+      file.metaData.fileName.endsWith(".dcm")
     )
+
+
     for (const dicomFile of newDicomFiles) {
-      if (dicomFile.id && !this.dicomFiles[dicomFile.id]) {
-        this.dicomFiles[dicomFile.id] = dicomFile
+      if (dicomFile.metaData.id && !this.dicomFiles[dicomFile.metaData.id]) {
+        this.dicomFiles[dicomFile.metaData.id] = dicomFile
       }
     }
   }
@@ -63,12 +65,12 @@ class PatientFileSystem extends System {
     return this.patientFiles[id]
   }
 
-  async getPlan(id) {
-    const fileInfo = this.dicomFiles[id]
-    if (fileInfo) {
-      const dataSet = await dicomLoadLocalFile(fileInfo.filePath)
+  async getFile(id) {
+    const file = this.dicomFiles[id]
+    if (file) {
+      const dataSet = await dicomLoadLocalFile(file.metaData.filePath)
 
-      return dicomExtractPlan(dataSet)
+      return dicomExtractFile(dataSet)
     }
   }
 }
@@ -83,8 +85,8 @@ ipcMain.handle("get-all-patient-files", async (event) => {
   return patientFiles
 })
 
-ipcMain.handle("get-plan", async (event, id) => {
-  return await patientFileSystem.getPlan(id)
+ipcMain.handle("get-file", async (event, id) => {
+  return await patientFileSystem.getFile(id)
 })
 
 export { patientFileSystem }

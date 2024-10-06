@@ -21,6 +21,7 @@ export default {
     },
   },
   plan: {
+    fraction_group: "Fraction group",
     intent: {
       curative: {
         value: "Curative",

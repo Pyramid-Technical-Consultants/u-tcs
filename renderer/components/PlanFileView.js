@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import usePlan from "../hooks/usePlan"
 import PatientTags from "./PatientTags"
 import FractionList from "./FractionList"
 import PlanTags from "./PlanTags"
@@ -27,28 +26,26 @@ const H2 = styled.h2`
   margin: 0;
 `
 
-function PlanView({ selectedNode }) {
-  const plan = usePlan(selectedNode?.id)
-
+function PlanFileView({ file }) {
   const displayName =
-    plan?.general?.name && plan?.general?.label
-      ? `${plan.general.name} (${plan.general.label})`
-      : plan?.general?.name || plan?.general?.label
-  const description = plan?.general?.description
+    file?.generalPlan?.name && file?.generalPlan?.label
+      ? `${file.generalPlan.name} (${file.generalPlan.label})`
+      : file?.generalPlan?.name || file?.generalPlan?.label
+  const description = file?.generalPlan?.description
 
   return (
     <Container>
       <Patient>
-        <PatientTags patient={plan?.patient} />
+        <PatientTags patient={file?.patient} />
       </Patient>
       <GeneralPlan>
         {displayName && <H2>{displayName}</H2>}
         {description && <p>{description}</p>}
-        <PlanTags plan={plan} />
+        <PlanTags plan={file} />
       </GeneralPlan>
-      <FractionList {...plan} />
+      <FractionList {...file} />
     </Container>
   )
 }
 
-export default PlanView
+export default PlanFileView

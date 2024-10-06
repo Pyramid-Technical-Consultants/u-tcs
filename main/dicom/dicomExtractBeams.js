@@ -1,5 +1,6 @@
 import dicomExtractSequence from "./dicomExtractSequence.js"
 import dicomFormatFloatArray from "./dicomFormatFloatArray.js"
+
 // Define DICOM tags for beam-related tags
 const BEAM_TAGS = {
   number: { tag: "x300a00c0", processor: parseInt },
@@ -59,21 +60,22 @@ const BEAM_TAGS = {
 /**
  * Extracts and processes beam information from a DICOM dataset.
  * @param {Object} dataSet - The DICOM dataset containing beam information.
+ * @param {Object} file - The file object to store the extracted beam information in.
  * @returns {Array} An array of processed beam objects.
  */
-function dicomExtractBeams(dataSet) {
+function dicomExtractBeams(dataSet, file) {
   // Determine the tag to use based on the presence of the "x300a03a2" tag
   // If the tag is not found, use "x300a00b0" as a fallback
   // This is the deference between RT ion beams and normal RT beams
-  let tag = dataSet.elements["x300a03a2"] ? "x300a03a2" : "x300a00b0"
+  const tag = dataSet.elements["x300a03a2"] ? "x300a03a2" : "x300a00b0"
 
-  let beams = dicomExtractSequence(dataSet, tag, BEAM_TAGS)
+  file.beams = dicomExtractSequence(dataSet, tag, BEAM_TAGS)
 
-  if (beams.length > 0) {
-    beams.sort((a, b) => a.number - b.number)
+  if (file.beams.length > 0) {
+    file.beams.sort((a, b) => a.number - b.number)
   }
 
-  return beams
+  return file.beams
 }
 
 export default dicomExtractBeams

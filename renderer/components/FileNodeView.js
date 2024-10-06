@@ -1,7 +1,7 @@
 import React from "react"
 import { Card } from "@blueprintjs/core"
-import PlanView from "./PlanView"
 import styled from "styled-components"
+import FileView from "./FileView"
 
 const Container = styled(Card)`
   display: flex;
@@ -17,7 +17,7 @@ const Container = styled(Card)`
 function FileNodeView({ selectedNode }) {
   return (
     <Container elevation={2}>
-      <PlanView selectedNode={selectedNode} />
+      <FileView id={selectedNode?.id} />
     </Container>
   )
 }
