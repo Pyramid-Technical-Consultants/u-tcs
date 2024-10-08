@@ -7,6 +7,7 @@ module.exports = {
     unoptimized: true,
   },
   webpack: (config) => {
+    config.experiments.asyncWebAssembly = true
     return config
   },
   compiler: {

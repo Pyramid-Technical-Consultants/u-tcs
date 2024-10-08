@@ -1,9 +1,18 @@
 import { useRef, useEffect } from "react"
+import styled from "styled-components"
 import useCornerstoneRenderingEngine from "../../hooks/cornerstone/useCornerstoneRenderingEngine"
 
 import { ViewportType } from "@cornerstonejs/core/dist/cjs/enums"
 
+import cornerstoneDICOMImageLoader from "@cornerstonejs/dicom-image-loader"
+
+const ViewportElement = styled.div`
+  width: 100%;
+  height: 100%;
+`
+
 function CornerstoneViewport({
+  file,
   engineID = "default",
   viewportId = "default",
   options = {},
@@ -23,24 +32,18 @@ function CornerstoneViewport({
           ...options,
         })
 
+        const bytes = await window.ipc.getFileBlob(file.metaData.id)
+
+        const blob = new Blob([bytes])
+
+        const imageId =
+          cornerstoneDICOMImageLoader.wadouri.fileManager.add(blob)
+
         const viewport = engine.getViewport(viewportId)
 
-        // Get Cornerstone imageIds and fetch metadata into RAM
-        // const imageIds = await createImageIdsAndCacheMetaData({
-        //   StudyInstanceUID:
-        //     "1.3.6.1.4.1.14519.5.2.1.7009.2403.334240657131972136850343327463",
-        //   SeriesInstanceUID:
-        //     "1.3.6.1.4.1.14519.5.2.1.7009.2403.226151125820845824875394858561",
-        //   wadoRsRoot: "https://d3t6nz73ql33tx.cloudfront.net/dicomweb",
-        // })
+        viewport.setStack([imageId], 0)
 
-        console.log("viewport", viewport)
-
-        if (viewport) {
-          viewport.setStack(["dicomfile:0"], 0)
-
-          viewport.render()
-        }
+        viewport.render()
       }
       render()
     }
@@ -50,9 +53,9 @@ function CornerstoneViewport({
         engine.disableElement(viewportId)
       }
     }
-  }, [engine, viewportId, ref])
+  }, [engine, viewportId, ref, file])
 
-  return <div ref={ref} id={viewportId} {...props} />
+  return <ViewportElement ref={ref} id={viewportId} {...props} />
 }
 
 export default CornerstoneViewport

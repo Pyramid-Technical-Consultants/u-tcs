@@ -4,6 +4,8 @@ import dicomLoadLocalDirectory from "../dicom/dicomLoadLocalDirectory"
 import dicomLoadLocalFile from "../dicom/dicomLoadLocalFile"
 import dicomExtractFile from "../dicom/dicomExtractFile"
 
+const fs = require("fs")
+
 class PatientFileSystem extends System {
   constructor() {
     super()
@@ -41,7 +43,6 @@ class PatientFileSystem extends System {
       file.metaData.fileName.endsWith(".dcm")
     )
 
-
     for (const dicomFile of newDicomFiles) {
       if (dicomFile.metaData.id && !this.dicomFiles[dicomFile.metaData.id]) {
         this.dicomFiles[dicomFile.metaData.id] = dicomFile
@@ -73,6 +74,19 @@ class PatientFileSystem extends System {
       return dicomExtractFile(dataSet)
     }
   }
+
+  async getFileBlob(id) {
+    const file = this.dicomFiles[id]
+    if (file) {
+      try {
+        const data = await fs.promises.readFile(file.metaData.filePath)
+        return data
+      } catch (error) {
+        console.error("Error reading file:", error)
+        throw error // This will be caught in the renderer process
+      }
+    }
+  }
 }
 
 const patientFileSystem = new PatientFileSystem()
@@ -87,6 +101,10 @@ ipcMain.handle("get-all-patient-files", async (event) => {
 
 ipcMain.handle("get-file", async (event, id) => {
   return await patientFileSystem.getFile(id)
+})
+
+ipcMain.handle("get-file-blob", async (event, id) => {
+  return await patientFileSystem.getFileBlob(id)
 })
 
 export { patientFileSystem }

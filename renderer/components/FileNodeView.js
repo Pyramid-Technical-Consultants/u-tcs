@@ -12,6 +12,7 @@ const Container = styled(Card)`
   gap: 1rem;
   overflow-x: hidden;
   overflow-y: auto;
+  padding: 0;
 `
 
 function FileNodeView({ selectedNode }) {

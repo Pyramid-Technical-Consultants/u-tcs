@@ -24,6 +24,9 @@ const handler = {
   async getFile(id) {
     return await ipcRenderer.invoke("get-file", id)
   },
+  async getFileBlob(id) {
+    return await ipcRenderer.invoke("get-file-blob", id)
+  },
 }
 
 ipcRenderer.on("login-request", async (event, credentials) => {
